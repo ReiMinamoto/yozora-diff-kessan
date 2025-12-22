@@ -1,0 +1,33 @@
+[project]
+name = "yozora-diff-kessan"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.13.5",
+    "dotenv>=0.9.9",
+    "google-genai>=1.43.0",
+    "numpy>=2.3.5",
+    "openai>=2.9.0",
+    "pymupdf>=1.26.4",
+    "scipy>=1.16.3",
+]
+
+[tool.ruff]
+line-length = 130
+indent-width = 4
+target-version = "py313"
+select = ["E", "F", "I", "UP", "B", "N", "C4", "DTZ", "RUF"]
+ignore = ["RUF001", "E501",  "B905", "N803", "N806"]
+
+[tool.ruff.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+lines-between-types = 1
+known-first-party = ["src"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false

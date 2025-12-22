@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900;
+}
+
+a {
+  @apply text-blue-600 underline-offset-4 transition hover:text-blue-700;
+}
+
+.tag-add {
+  @apply rounded-md bg-add-bg px-1.5 py-0.5 font-semibold text-add-text;
+}
+
+.tag-del {
+  @apply rounded-md bg-del-bg px-1.5 py-0.5 font-semibold text-del-text line-through;
+}
