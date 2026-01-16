@@ -4,6 +4,7 @@ Google GeminiまたはOpenAI APIを使用して、財務文書の差分を二段
 Stage 1では各編集の説明を生成し、Stage 2ではテーマ別の要約を生成します。
 """
 
+import logging
 import os
 
 from dotenv import load_dotenv
@@ -19,6 +20,9 @@ from src.llm_summarizer.prompts import (
 
 GOOGLE_API_MODEL = "gemini-2.5-pro"
 OPENAI_API_MODEL = "gpt-5"
+
+
+logger = logging.getLogger(__name__)
 
 
 def create_client() -> genai.Client | openai.OpenAI | None:
@@ -189,7 +193,8 @@ def two_stage_summarize(processed: list[dict]) -> dict[str, str]:
         stage1_output = generate_edit_descriptions(diff_text)
         stage2_output = generate_thematic_summary(stage1_output)
         return {"stage1": stage1_output, "stage2": stage2_output}
-    except Exception:
+    except Exception as e:
+        logger.exception("LLM要約処理中にエラーが発生しました。フォールバック処理に移行します。エラー: %s", e)
         stage1_output = _fallback_stage1(processed)
         stage2_output = _fallback_stage2(processed)
         return {"stage1": stage1_output, "stage2": stage2_output}

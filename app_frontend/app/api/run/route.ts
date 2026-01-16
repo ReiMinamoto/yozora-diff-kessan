@@ -57,9 +57,14 @@ async function runPythonScript(
       stdio: ["ignore", "pipe", "pipe"]
     });
 
+    child.stdout.on("data", (chunk) => {
+      process.stdout.write(chunk);
+    });
+
     let stderr = "";
     child.stderr.on("data", (chunk) => {
       stderr += chunk.toString();
+      process.stderr.write(chunk);
     });
 
     child.on("close", (code) => {
